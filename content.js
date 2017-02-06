@@ -45,10 +45,13 @@
             //Add color 
             icon.removeClass("icon-file-alt");
 
+            console.log(item.attr('href'));
+
             switch (data[0]) {
                 case 'style':
                     icon.addClass("icon-css3");
                     icon.css("color", "green");
+                    item.attr('href', item.attr('href').replace("template_type=html", "template_type=css"));
                     break;
 
                 case 'script':
