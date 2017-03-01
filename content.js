@@ -29,6 +29,12 @@
         });
 
 
+        $(document).on('click', "a[href='#assets']", function() {
+            console.log("test");
+            plugin.makeBetterAssets();
+        });
+
+
         $(document).keydown(function(event) {
 
             //Ctrl+w
@@ -47,6 +53,50 @@
                 event.preventDefault();
                 return false;
             };
+        });
+    }
+
+
+    makeBetterAssets = function() {
+        var plugin = this;
+
+        var button = $('<a href="#" class="btn"><i class="icon-plus-sign"></i> Ver galería</a>');
+        $('#assets').prepend(button);
+
+
+        button.on('click', function(){
+            var data = '';
+
+            $('#table-file-assets .copyurl').each(function(i, e){
+            var type = $(e).attr('m_type');
+                switch(type){
+                    case 'image/jpeg':
+                    case 'image/png':
+                    case 'image/gif':
+                    case 'image/svg+xml':
+                        data += $(e).find('.popup-marker').data('content');
+                        console.log(data);
+                    break;
+                }
+            });
+            var win = window.open(''); 
+            win.document.body.innerHTML = data;
+        });
+
+        
+        $('#table-file-assets .copyurl').each(function(i, e){
+            var type = $(e).attr('m_type');
+            switch(type){
+                case 'image/jpeg':
+                case 'image/png':
+                case 'image/gif':
+                case 'image/svg+xml':
+                    $(e).find('.icon-file').css({
+                        'color': 'blue',
+                        'cursor': 'pointer'
+                    });
+                break;
+            }
         });
     }
 
