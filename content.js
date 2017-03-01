@@ -60,12 +60,19 @@
     makeBetterAssets = function() {
         var plugin = this;
 
-        var button = $('<a href="#" class="btn"><i class="icon-plus-sign"></i> Ver galería</a>');
+
+        if (!$('#assets') || $('#assets').hasClass('superpowers')) {
+            return;
+        } else {
+            $('#assets').addClass('superpowers');
+        }
+
+        var button = $('<a href="#" class="btn" style="width: 180px;"><i class="icon-plus-sign"></i> Ver galería</a>');
         $('#assets').prepend(button);
 
-
         button.on('click', function(){
-            var data = '';
+            var data = '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">';
+            data += '<div class="container"><h1 class="text-center">Assets gallery</h1><hr><div class="row">';
 
             $('#table-file-assets .copyurl').each(function(i, e){
             var type = $(e).attr('m_type');
@@ -74,11 +81,21 @@
                     case 'image/png':
                     case 'image/gif':
                     case 'image/svg+xml':
-                        data += $(e).find('.popup-marker').data('content');
-                        console.log(data);
+                        var regex = /value='([^']*)'/g;
+                        var image = regex.exec($(e).find('.popup-marker').data('content'));
+                        console.log(image[1]);
+                        data += '<div class="col-sm-4"><div class="card mb-3">';
+                        data += '<div class="card-img-top" style="background-color: #f2f2f2; background-image: url('+image[1]+'); background-repeat: no-repeat; background-position: center; background-size: contain; width: 100%; height: 200px;"alt="Card image cap" style="max-height: 200px"></div>';
+                        // data += '<img class="card-img-top" src="'+image[1]+'" alt="Card image cap" style="max-height: 200px">';
+                        data += '<div class="card-block"><pre>'+image[1]+'</pre></div>';
+                        //data += $(e).find('.popup-marker').data('content');
+                        data += '</div></div>';
+                        //console.log(data);
                     break;
                 }
             });
+
+            data += '</div></div>';
             var win = window.open(''); 
             win.document.body.innerHTML = data;
         });
@@ -104,11 +121,15 @@
     makeBetterSnippets = function() {
         var plugin = this;
 
-        if (!$('#snippet-list-container') || $('#snippet-list-container snippet-item').hasClass('superpowers')) {
+        if ($('#snippet-list-container').hasClass('superpowers')) {
             return;
         } else {
-            $('#snippet-list-container snippet-item').addClass('superpowers');
+            $('#snippet-list-container').addClass('superpowers');
         }
+
+
+
+        $('#snippets .wrap-accordion.upload-section h3').append(' ('+$('#snippet-list-container .snippet-item').length+')');
 
 
         // //Change snippets order
