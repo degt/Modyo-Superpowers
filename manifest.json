@@ -1,6 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Modyo Superpowers",
+    "description": "Increase your Modyo Platform productivity with better snippets, search boxes, keyboard commands and more.",
     "version": "0.1",
     "icons": { "16": "icon16.png",
            "48": "icon48.png",
