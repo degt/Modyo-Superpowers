@@ -121,10 +121,10 @@
     makeBetterSnippets = function() {
         var plugin = this;
 
-        if ($('#snippet-list-container').hasClass('superpowers')) {
+        if ($('#snippet-list-container .snippet-item').hasClass('superpowers')) {
             return;
         } else {
-            $('#snippet-list-container').addClass('superpowers');
+            $('#snippet-list-container .snippet-item').addClass('superpowers');
         }
 
 
