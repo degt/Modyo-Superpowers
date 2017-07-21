@@ -15,22 +15,18 @@
             return false;
         }
 
+        if (modyoVersion.split('.')[0] >= 8){
+            console.log('ModyoSuperpowers', "WARNING: You are running Modyo 8. This plugin doesn't work with this version");
+            return false;
+        }
+
         console.log('ModyoSuperpowers', 'init');
 
-        //ToDo: Optimize calls
-        // $("html").bind("DOMSubtreeModified", function() {
-        //     plugin.makeBetterSnippets();
-        // });
-
-
         $(document).on('click', "a[href='#snippets']", function() {
-            console.log("test");
             plugin.makeBetterSnippets();
         });
 
-
         $(document).on('click', "a[href='#assets']", function() {
-            console.log("test");
             plugin.makeBetterAssets();
         });
 
