@@ -60,13 +60,19 @@
 
     makeBetterModyo8 = function(){
         var plugin = this;
-        $(document).ready(function(){
-            console.log($('.page-actions'));
-            console.log('INIT MODYO 8');
-            if(document.location.href.search('widget_definitions') > 0){
+        // $(document).ajaxComplete(function() {
+        //     console.log('do the hustle');
+        // });
+
+
+        if(document.location.href.search('widget_definitions/') > 0){
+            setTimeout(function(){
+                console.log($('.page-actions'));
+                console.log('INIT MODYO 8');
                 plugin.makeBetterWidgets();
-            }
-        });
+            }, 3000);
+        }
+
     }
 
     // Modyo 8 feature
