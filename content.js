@@ -15,12 +15,18 @@
             return false;
         }
 
-        if (modyoVersion.split('.')[0] >= 8){
-            console.log('ModyoSuperpowers', "WARNING: You are running Modyo 8. This plugin doesn't work with this version");
-            return false;
-        }
+        if (modyoVersion.split('.')[0] >= 8){            
+            console.log('ModyoSuperpowers', 'init 8');
+            plugin.makeBetterModyo8();
+        }else{
+            console.log('ModyoSuperpowers', 'init 7');
+            plugin.makeBetterModyo7();
+        }       
 
-        console.log('ModyoSuperpowers', 'init');
+    }
+
+    makeBetterModyo7 = function(){
+        var plugin = this;
 
         $(document).on('click', "a[href='#snippets']", function() {
             plugin.makeBetterSnippets();
@@ -50,6 +56,43 @@
                 return false;
             };
         });
+    }
+
+    makeBetterModyo8 = function(){
+        var plugin = this;
+        $(document).ready(function(){
+            console.log($('.page-actions'));
+            console.log('INIT MODYO 8');
+            if(document.location.href.search('widget_definitions') > 0){
+                plugin.makeBetterWidgets();
+            }
+        });
+    }
+
+    // Modyo 8 feature
+    makeBetterWidgets = function() {
+        var $button = $('<button class="btn btn-default margin-r-xs"><i class="mdi mdi-arrow-expand-all"></i></button>');
+        $button.data('action', 'expand');
+        $button.click(function(){
+            if($button.data('action') == 'expand'){
+                $('#main-menu').addClass('d-none');
+                $('.main-row').removeClass('col-md-8');
+                $('.main-row').addClass('col-md-12');
+                $('#main').css('left', 0);
+                $('.complementary-row').addClass('d-none');
+                $button.data('action', 'collapse');
+                $button.html('<i class="mdi mdi-arrow-compress-all"></i>');
+            }else{
+                $('#main-menu').removeClass('d-none');
+                $('.main-row').addClass('col-md-8');
+                $('.main-row').removeClass('col-md-12');
+                $('#main').css('left', 240);
+                $('.complementary-row').removeClass('d-none');
+                $button.data('action', 'expand');
+                $button.html('<i class="mdi mdi-arrow-expand-all"></i>');
+            }
+        });
+        $('.page-actions').prepend($button); 
     }
 
 
